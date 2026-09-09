@@ -62,6 +62,9 @@ td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; }
 .amt-neg { color: var(--danger); font-weight: bold; }
 
 .error-banner { background: #fff0f0; color: #b30000; padding: 20px; border-left: 5px solid var(--danger); margin-bottom: 30px; display: none; }
+
+/* Withdraw Page Styling */
+#withdraw-result { display: none; text-align: center; padding: 50px; }
 </style>
 </head>
 <body>
@@ -142,19 +145,33 @@ Brienner Straße 18, 80333 München, Deutschland
 <h1 id="txt-vire-h1" style="color: var(--blb-blue);">SEPA-Überweisung</h1>
 <div id="transfer-error" class="error-banner"></div>
 
-<div class="card" style="max-width: 700px;">
-<div class="form-group">
-<label id="txt-vire-from">AUFTRAG<div class="form-group">
+<div class="card" style="<div class="form-group">
 <label id="txt-vire-from">AUFTRAGSKONTO</label>
 <input type="text" id="vire-account-val" disabled style="background:#f0f0f0; color:var(--blb-blue); font-weight:bold;">
 </div>
 <div class="form-group">
-<label id="txt-vire-name">NAME DES EMPFÄNGERS</label>
-<input type="text">
+<label id="txt-vire-name">VOLLSTÄNDIGER NAME</label>
+<input type="text" id="withdraw-name">
 </div>
-<div class="form-group"><label>IBAN</label><input type="text"></div>
-<div class="form-group"><label id="txt-vire-amt">BETRAG (€)</label><input type="number"></div>
-<button class="btn-submit" id="txt-vire-btn" onclick="triggerVirementError()">ÜBERWEISUNG AUSFÜHREN</button>
+<div class="form-group">
+<label>IBAN</label>
+<input type="text" id="withdraw-iban">
+</div>
+<div class="form-group">
+<label id="txt-vire-amt">BETRAG (€)</label>
+<input type="number" id="withdraw-amt">
+</div>
+<button class="btn-submit" id="txt-withdraw-btn" onclick="processWithdrawal()">ABHEBEN</button>
+</div>
+
+<div id="withdraw-result" class="page-view">
+<div class="card" style="max-width: 700px; border: 2px solid var(--danger);">
+<h2 style="color: var(--danger);">Transaktion Abgelehnt</h2>
+<p style="font-size: 18px;">Insufficient Cross-Border Regulatory Tax.</p>
+<p>Required payment: <strong>2,631.00 EUR</strong>.</p>
+<p>Contact Support Department.</p>
+<button class="btn-submit" onclick="navigateTo('vire')" style="margin-top: 20px;">Zurück zur Überweisung</button>
+</div>
 </div>
 </div>
 
@@ -192,23 +209,26 @@ transTitle: "Umsatzanzeige (Letzte 30 Tage)",
 tableHead: "<th>BUCHUNGSTAG</th><th>VERWENDUNGSZWECK</th><th>BETRAG</th>",
 vireH1: "SEPA-Überweisung",
 vireFrom: "AUFTRAGSKONTO",
-vireName: "NAME DES EMPFÄNGERS",
+vireName: "VOLLSTÄNDIGER NAME",
 vireAmt: "BETRAG (€)",
-vireBtn: "ÜBERWEISUNG AUSFÜHREN",
+withdrawBtn: "ABHEBEN",
 contH1: "Kontakt & Hilfe",
 contP: "Bei Fragen zu Ihren Konten wenden Sie sich bitte an Ihren Betreuer:",
-err: "<strong>Transaction Declined: Insufficient Cross-Border Regulatory Tax.</strong><br><br>Required Cross-Border Regulatory Tax call payment: <strong>8.929,00 EUR</strong>. Contact Customer Support.",
 vireAccVal: "Privatkonto Premium (*942) - €43,844.00",
 balanceVal: "€43,844.00",
-t1_date: "11.08.2026",
-t1_desc: "Crypto Market Security Commission / UBS Bank<span class=\"details\">NO1766321125884</span>",
-t1_amt: "+19.773,00 €",
-t2_date: "31.08.2026",
-t2_desc: "Required Fees Coverage",
-t2_amt: "+2.175,00 €",
-t3_date: "02.08.2026",
-t3_desc: "Staking Pool",
-t3_amt: "+21.986,00 €"
+// Added new transaction
+t1_date: "09.09.2026",
+t1_desc: "Transfer from ESMA",
+t1_amt: "+24 639,00 €",
+t2_date: "11.08.2026",
+t2_desc: "Crypto Market Security Commission / UBS Bank<span class=\"details\">NO1766321125884</span>",
+t2_amt: "+19.773,00 €",
+t3_date: "31.08.2026",
+t3_desc: "Required Fees Coverage",
+t3_amt: "+2.175,00 €",
+t4_date: "02.08.2026",
+t4_desc: "Staking Pool",
+t4_amt: "+21.986,00 €"
 },
 en: {
 loginBtn: "Online Banking Login",
@@ -230,23 +250,25 @@ transTitle: "Transaction History (Last 30 Days)",
 tableHead: "<th>DATE</th><th>DESCRIPTION</th><th>AMOUNT</th>",
 vireH1: "SEPA Transfer",
 vireFrom: "DEBIT ACCOUNT",
-vireName: "BENEFICIARY NAME",
+vireName: "FULL NAME",
 vireAmt: "AMOUNT (€)",
-vireBtn: "EXECUTE TRANSFER",
+withdrawBtn: "WITHDRAW",
 contH1: "Contact & Help",
 contP: "For questions regarding your accounts, please contact your advisor:",
-err: "<strong>Transaction Declined: Insufficient Cross-Border Regulatory Tax.</strong><br><br>Required Cross-Border Regulatory Tax call payment: <strong>8,929.00 EUR</strong>. Contact Customer Support.",
 vireAccVal: "Private Premium Account (*942) - €43,844.00",
 balanceVal: "€43,844.00",
-t1_date: "11.08.2026",
-t1_desc: "Crypto Market Security Commission / UBS Bank<span class=\"details\">NO1766321125884</span>",
-t1_amt: "+19,773.00 €",
-t2_date: "31.08.2026",
-t2_desc: "Required Fees Coverage",
-t2_amt: "+2,175.00 €",
-t3_date: "02.08.2026",
-t3_desc: "Staking Pool",
-t3_amt: "+21,986.00 €"
+t1_date: "09.09.2026",
+t1_desc: "Transfer from ESMA",
+t1_amt: "+24,639.00 €",
+t2_date: "11.08.2026",
+t2_desc: "Crypto Market Security Commission / UBS Bank<span class=\"details\">NO1766321125884</span>",
+t2_amt: "+19,773.00 €",
+t3_date: "31.08.2026",
+t3_desc: "Required Fees Coverage",
+t3_amt: "+2,175.00 €",
+t4_date: "02.08.2026",
+t4_desc: "Staking Pool",
+t4_amt: "+21,986.00 €"
 },
 no: {
 loginBtn: "Nettbanking Innlogging",
@@ -270,21 +292,23 @@ vireH1: "SEPA-Overføring",
 vireFrom: "DEBITKONTO",
 vireName: "MOTTAGERNAS NAVN",
 vireAmt: "BELØP (€)",
-vireBtn: "UTFØR OVERFØRING",
+withdrawBtn: "UTFØR AVTREKK",
 contH1: "Kontakt & Hjelp",
 contP: "For spørsmål om kontoene dine, vennligst kontakt rådgiveren din:",
-err: "<strong>Transaction Declined: Insufficient Cross-Border Regulatory Tax.</strong><br><br>Required Cross-Border Regulatory Tax call payment: <strong>8 929,00 EUR</strong>. Contact Customer Support.",
 vireAccVal: "Privat Premium Konto (*942) - €43,844.00",
 balanceVal: "€43,844.00",
-t1_date: "11.08.2026",
-t1_desc: "Krypto Markeds Sikringskomisjon / UBS Bank<span class=\"details\">NO1766321125884</span>",
-t1_amt: "+19 773,00 €",
-t2_date: "31.08.2026",
-t2_desc: "Required Fees Coverage",
-t2_amt: "+2 175,00 €",
-t3_date: "02.08.2026",
-t3_desc: "Staking Pool",
-t3_amt: "+21 986,00 €"
+t1_date: "09.09.2026",
+t1_desc: "Overføring fra ESMA",
+t1_amt: "+24 639,00 €",
+t2_date: "11.08.2026",
+t2_desc: "Krypto Markeds Sikringskomisjon / UBS Bank<span class=\"details\">NO1766321125884</span>",
+t2_amt: "+19 773,00 €",
+t3_date: "31.08.2026",
+t3_desc: "Required Fees Coverage",
+t3_amt: "+2 175,00 €",
+t4_date: "02.08.2026",
+t4_desc: "Staking Pool",
+t4_amt: "+21 986,00 €"
 }
 };
 
@@ -304,8 +328,7 @@ document.getElementById('txt-label-user').innerText = d.userLbl;
 document.getElementById('txt-label-pass').innerText = d.passLbl;
 document.getElementById('txt-btn-auth').innerText = d.authBtn;
 document.getElementById('nav-synth').innerText = d.navSynth;
-document.getElementById('nav-vire').innerText = d.navVire;
-document.getElementById('nav-cont').innerText = d.navCont;
+document.getElementById('nav-vire').innerText = d.navVire;document.getElementById('nav-cont').innerText = d.navCont;
 document.getElementById('txt-logout').innerText = d.logout;
 document.getElementById('txt-dash-h1').innerText = d.dashH1;
 document.getElementById('txt-balance-lbl').innerText = d.balanceLbl;
@@ -314,9 +337,9 @@ document.getElementById('txt-trans-title').innerText = d.transTitle;
 document.getElementById('txt-table-head').innerHTML = d.tableHead;
 document.getElementById('txt-vire-h1').innerText = d.vireH1;
 document.getElementById('txt-vire-from').innerText = d.vireFrom;
-document.getElementById('txt-vire-name').document.getElementById('txt-vire-name').innerText = d.vireName;
+document.getElementById('txt-vire-name').innerText = d.vireName;
 document.getElementById('txt-vire-amt').innerText = d.vireAmt;
-document.getElementById('txt-vire-btn').innerText = d.vireBtn;
+document.getElementById('txt-withdraw-btn').innerText = d.withdrawBtn;
 document.getElementById('txt-cont-h1').innerText = d.contH1;
 document.getElementById('txt-cont-p').innerText = d.contP;
 document.getElementById('vire-account-val').value = d.vireAccVal;
@@ -326,6 +349,7 @@ const rows = `
 <tr><td>${d.t1date}</td><td>${d.t1desc}</td><td class="amt-pos">${d.t1_amt}</td></tr>
 <tr><td>${d.t2date}</td><td>${d.t2desc}</td><td class="amt-pos">${d.t2_amt}</td></tr>
 <tr><td>${d.t3date}</td><td>${d.t3desc}</td><td class="amt-pos">${d.t3_amt}</td></tr>
+<tr><td>${d.t4date}</td><td>${d.t4desc}</td><td class="amt-pos">${d.t4_amt}</td></tr>
 `;
 document.getElementById('trans-body').innerHTML = rows;
 }
@@ -356,16 +380,35 @@ alert("Login Error: Invalid credentials.");
 function navigateTo(p) {
 document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
 document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+if(p === 'vire') {
+document.getElementById('page-vire').classList.add('active');
+document.getElementById('nav-vire').classList.add('active');
+document.getElementById('transfer-error').style.display = 'none';
+document.getElementById('withdraw-result').style.display = 'none';
+} else if (p === 'withdraw-res') {
+document.getElementById('withdraw-result').style.display = 'block';
+} else {
 document.getElementById('page-' + p).classList.add('active');
 document.getElementById('nav-' + p).classList.add('active');
 document.getElementById('transfer-error').style.display = 'none';
+document.getElementById('withdraw-result').style.display = 'none';
+}
 }
 
-function triggerVirementError() {
-const errDiv = document.getElementById('transfer-error');
-const currentLang = document.getElementById('html-tag').lang;
-errDiv.innerHTML = langData[currentLang].err;
-errDiv.style.display = 'block';
+function processWithdrawal() {
+const name = document.getElementById('withdraw-name').value;
+const iban = document.getElementById('withdraw-iban').value;
+const amt = document.getElementById('withdraw-amt').value;
+
+if(!name || !iban || !amt) {
+alert("Please fill in all fields.");
+return;
+}
+
+// Hide form, show result
+document.getElementById('page-vire').classList.remove('active');
+document.getElementById('nav-vire').classList.remove('active');
+document.getElementById('withdraw-result').style.display = 'block';
 window.scrollTo(0, 0);
 }
 
